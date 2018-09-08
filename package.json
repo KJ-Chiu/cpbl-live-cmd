@@ -1,0 +1,23 @@
+{
+  "name": "cpbl-live-cmd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KJ-Chiu/cpbl-live-cmd.git"
+  },
+  "keywords": [
+    "cpbl",
+    "cmd"
+  ],
+  "author": "KJ Chiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KJ-Chiu/cpbl-live-cmd/issues"
+  },
+  "homepage": "https://github.com/KJ-Chiu/cpbl-live-cmd#readme"
+}
