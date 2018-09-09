@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/KJ-Chiu/cpbl-live-cmd/issues"
   },
-  "homepage": "https://github.com/KJ-Chiu/cpbl-live-cmd#readme"
+  "homepage": "https://github.com/KJ-Chiu/cpbl-live-cmd#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
