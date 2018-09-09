@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/KJ-Chiu/cpbl-live-cmd#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "request": "^2.88.0"
   }
 }
