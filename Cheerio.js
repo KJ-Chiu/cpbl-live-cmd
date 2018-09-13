@@ -10,8 +10,9 @@ class Cheerio {
   filterSchedule () {
     const $ = cheerio.load(this.data);
     let schedule = $('.schedule').first('tbody');
+    this.beforeMonth = -1;// -1: 前一個月； 0: 當月； 1: 下個月
+    // 日期欄
     $(schedule).children().children('tr').children('th').each((i, elem) => {
-      // 日期欄
       if ($(elem).hasClass('past') || $(elem).hasClass('today') || $(elem).hasClass('future')) {
         this.filterScheduleDate($(elem));
       }
@@ -20,7 +21,22 @@ class Cheerio {
 
   filterScheduleDate (dateColumn) {
     const $ = cheerio.load(this.data);
-    console.log($(dateColumn).html());
+    let date = parseInt($(dateColumn).html());
+    if (1 == date) {
+      this.beforeMonth += 1;
+    }
+
+    let month = this.month + this.beforeMonth;
+    if (10 > month) {
+      month = '0' + month;
+    }
+    if (10 > date) {
+      date = '0' + date;
+    }
+
+    this.filterData.push({
+      date: month + '/' + date
+    });
   }
 }
 
