@@ -71,7 +71,7 @@ searchByDate = () => {
         closeReadLine();
       }
       let cheerio = new Cheerio();
-      cheerio.setData(data);
+      cheerio.setData(data, todayMonth);
       cheerio.filterSchedule();
     });
   });

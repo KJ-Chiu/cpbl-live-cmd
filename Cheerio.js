@@ -1,8 +1,9 @@
 const cheerio = require('cheerio');
 
 class Cheerio {
-  setData (data) {
+  setData (data, month) {
     this.data = data;
+    this.month = parseInt(month);
     this.filterData = [];
   }
 
