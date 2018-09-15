@@ -23,6 +23,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "fs": "0.0.1-security",
+    "html-entities": "^1.2.1",
     "request": "^2.88.0"
   }
 }
