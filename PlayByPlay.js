@@ -18,6 +18,14 @@ class PlayByPlay {
   }
 
   getData () {
+    let cheerio = new Cheerio();
+    let all = cheerio.filterPlayByPlay(this.initData);
+
+    // 已經結束的比賽
+    if ('1上' == all[0].inning) {
+      return this.finishedGame(all);
+    }
+
     return this.refresh();
   }
 
