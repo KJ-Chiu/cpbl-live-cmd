@@ -115,6 +115,8 @@ class Cheerio {
     this.filterData.forEach(perDay => {
       // 非當月份不會有比賽資訊，過濾掉
       if (perDay.month != this.month) {
+        week++;
+        week = week % 7;
         return;
       }
 
