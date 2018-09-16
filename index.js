@@ -1,6 +1,7 @@
 console.log('歡迎來到 CPBL LIVE CMD 及時賽況，請稍後...');
 const Request = require('./Request');
 const Cheerio = require('./Cheerio');
+const PlayByPlay = require('./PlayByPlay');
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -8,6 +9,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+const playByPlay = new PlayByPlay();
 const today = new Date();
 let todayYear = today.getFullYear();
 let todayMonth = today.getMonth() + 1;
@@ -89,6 +91,9 @@ startWithGameId = () => {
       if (false === data) {
         closeReadLine();
       }
+
+      playByPlay.init(gameId, gameDate, pbyear, data);
+      return stayWaiting();
     });
   });
 }
