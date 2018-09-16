@@ -151,6 +151,7 @@ class Cheerio {
       week++;
       week = week % 7;
     });
+    console.log(' ');
   }
 }
 
