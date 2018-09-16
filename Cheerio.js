@@ -155,6 +155,46 @@ class Cheerio {
     });
     console.log(' ');
   }
+
+  filterPlayByPlay (data) {
+    this.data = data;
+    const $ = cheerio.load(this.data);
+    let pbp = $(this.data).find('.gap_b20').children('table').children('tbody');
+
+    let playByPlay = [];
+    let currentInning = -1;
+    $(pbp).children('tr').each((i, elem) => {
+      // 局數
+      if (0 < $(elem).children('th').length) {
+        playByPlay.push({
+          inning: $(elem).children('th').eq(0).text(),
+          play: []
+        });
+        currentInning++;
+        return;
+      }
+
+      // 說明
+      if ($(elem).hasClass('change')) {
+        playByPlay[currentInning]['play'].push({
+          type: 'comment',
+          text: $(elem).children('td').eq(1).text()
+        });
+        return;
+      }
+
+      // play by play
+      if (0 < $(elem).children('td').length) {
+        playByPlay[currentInning]['play'].push({
+          type: 'game',
+          order: $(elem).children('td').eq(0).text(),
+          text: $(elem).children('td').eq(1).text()
+        });
+        return;
+      }
+    });
+    return playByPlay;
+  }
 }
 
 module.exports = Cheerio;
