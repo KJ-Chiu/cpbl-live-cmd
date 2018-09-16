@@ -22,6 +22,8 @@ class Cheerio {
       let data = this.filterData[i];
       this.filterData[i] = this.filterScheduleGame($(elem), data);
     });
+
+    this.showSchedule();
   }
 
   filterScheduleDate (dateColumn) {
@@ -40,6 +42,7 @@ class Cheerio {
     }
 
     this.filterData.push({
+      month: month,
       date: month + '/' + date
     });
   }
@@ -95,6 +98,59 @@ class Cheerio {
     }
 
     return '未知';
+  }
+
+  showSchedule () {
+    let week = 0;
+    let weekChinese = [
+      '一',
+      '二',
+      '三',
+      '四',
+      '五',
+      '六',
+      '日',
+    ];
+
+    this.filterData.forEach(perDay => {
+      // 非當月份不會有比賽資訊，過濾掉
+      if (perDay.month != this.month) {
+        return;
+      }
+
+      console.log(' ');
+      let date = `|| ${perDay.date} (${weekChinese[week]}) ||`;
+      let line = date;
+
+      let gameCount = 0;
+      perDay.games.forEach(game => {
+        // 超過兩場會有點太長，切割做下一行
+        gameCount++;
+        if (2 < gameCount) {
+          gameCount = 1;
+          console.log(line);
+          line = date;
+        }
+
+        // 產生比賽資訊
+        let code = game.code;
+        if (10 > parseInt(code)) {
+          code = '00' + code;
+        }
+        if (100 > parseInt(code)) {
+          code = '0' + code;
+        }
+        let place = game.place;
+        if (2 == place.length) {
+          place = ` ${place} `;
+        }
+        line += ` ${game.away} v.s. ${game.home} [${code}][${place}] ||`;
+      });
+
+      console.log(line);
+      week++;
+      week = week % 7;
+    });
   }
 }
 
