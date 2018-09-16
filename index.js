@@ -74,6 +74,7 @@ searchByDate = () => {
       let cheerio = new Cheerio();
       cheerio.setData(data, targetMonth);
       cheerio.filterSchedule();
+      return askFirstStep();
     });
   });
 }
