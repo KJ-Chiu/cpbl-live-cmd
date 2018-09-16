@@ -20,6 +20,26 @@ class PlayByPlay {
   getData () {
     return this.refresh();
   }
+
+  finishedGame (all) {
+    all.forEach(inning => {
+      console.log(' ');
+      console.log(`現在局數: ${inning.inning}`.bold.yellow)
+      inning.play.forEach(perPlay => {
+        console.log(' ');
+        if ('comment' == perPlay.type) {
+          return console.log(' '.bgYellow + ` ${perPlay.text} ` + ' '.bgYellow);
+        }
+
+        if ('game' == perPlay.type) {
+          return console.log(' '.bgWhite + ` ${perPlay.text} ` + ' '.bgWhite);
+        }
+      });
+    });
+
+    console.log('\n 比賽結束 \n'.bold.yellow);
+    return console.log('Command: (S) to see score board, (Q) to quit game: \n');
+  }
 }
 
 module.exports = PlayByPlay;
