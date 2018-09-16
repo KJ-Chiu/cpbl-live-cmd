@@ -93,6 +93,25 @@ startWithGameId = () => {
   });
 }
 
+stayWaiting = () => {
+  rl.question(`Command: (S) to see score board, (Q) to quit game: \n`, (answer) => {
+    answer = answer.toUpperCase();
+    if ('Q' == answer || 'EXIT' == answer) {
+      // playByPlay.stop();
+      return askFirstStep();
+    }
+
+    if ('HELP' == answer) {
+      return stayWaiting();
+    }
+
+    if ('S' == answer) {
+      // playByPlay.scoreBoard();
+      return stayWaiting();
+    }
+  });
+}
+
 dateValidation = (date) => {
   let dateArray = date.split('-');
   if (3 !== dateArray.length) {
