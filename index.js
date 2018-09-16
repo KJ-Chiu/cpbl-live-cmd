@@ -36,7 +36,7 @@ askFirstStep = () => {
     }
 
     console.log('You choose: Start with game id');
-    return closeReadLine();
+    return startWithGameId();
   });
 }
 
@@ -62,6 +62,33 @@ searchByDate = () => {
       cheerio.setData(data, targetMonth);
       cheerio.filterSchedule();
       return askFirstStep();
+    });
+  });
+}
+
+startWithGameId = () => {
+  let todayFormat = `${todayYear}-${todayMonth}-${todayDate}`;
+  rl.question(`Please enter game Id and game date like following format (123 ${todayFormat}): `, (answer) => {
+    if ('exit' == answer) {
+      return askFirstStep();
+    }
+
+    answer = answer + ' ';
+    let value = answer.split(' ');
+    let gameId = value[0];
+    let gameDate = value[1];
+    if (!parseInt(gameId) || !dateValidation(gameDate)) {
+      console.log('Wrong format, please type again.');
+      return startWithGameId();
+    }
+
+    console.log(`Start to search game ${gameId} at ${gameDate}`);
+    let pbyear = gameDate.split('-')[0];
+    let request = new Request();
+    request.gamePlayByPlay(gameId, gameDate, pbyear, (data) => {
+      if (false === data) {
+        closeReadLine();
+      }
     });
   });
 }
