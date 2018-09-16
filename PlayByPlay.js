@@ -1,5 +1,6 @@
 const Request = require('./Request');
 const Cheerio = require('./Cheerio');
+const colors = require('colors');
 
 class PlayByPlay {
   init (gameId, gameDate, pbyear, data) {
