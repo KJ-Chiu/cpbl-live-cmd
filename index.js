@@ -64,6 +64,7 @@ searchByDate = () => {
       console.log('Wrong format, please type again.');
       return searchByDate();
     }
+    let targetMonth = dateArray[1];
 
     let request = new Request();
     let data = request.schedule(answer, (data) => {
@@ -71,7 +72,7 @@ searchByDate = () => {
         closeReadLine();
       }
       let cheerio = new Cheerio();
-      cheerio.setData(data, todayMonth);
+      cheerio.setData(data, targetMonth);
       cheerio.filterSchedule();
     });
   });
