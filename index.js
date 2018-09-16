@@ -47,24 +47,11 @@ searchByDate = () => {
       return askFirstStep();
     }
 
-    let dateArray = answer.split('-');
-    if (3 !== dateArray.length) {
+    if (!dateValidation(answer)) {
       console.log('Wrong format, please type again.');
       return searchByDate();
     }
-
-    let valid = true;
-    dateArray.forEach(element => {
-      element = parseInt(element);
-      if (!element) {
-        valid = false;
-      }
-    });
-    if (!valid) {
-      console.log('Wrong format, please type again.');
-      return searchByDate();
-    }
-    let targetMonth = dateArray[1];
+    let targetMonth = answer.split('-')[1];
 
     let request = new Request();
     let data = request.schedule(answer, (data) => {
@@ -77,6 +64,22 @@ searchByDate = () => {
       return askFirstStep();
     });
   });
+}
+
+dateValidation = (date) => {
+  let dateArray = date.split('-');
+  if (3 !== dateArray.length) {
+    return false;
+  }
+
+  dateArray.forEach(element => {
+    element = parseInt(element);
+    if (!element) {
+      return false;
+    }
+  });
+
+  return true;
 }
 
 closeReadLine = () => {
