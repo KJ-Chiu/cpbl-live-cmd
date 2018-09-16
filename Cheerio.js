@@ -23,7 +23,7 @@ class Cheerio {
       this.filterData[i] = this.filterScheduleGame($(elem), data);
     });
 
-    this.showSchedule();
+    return this.showSchedule();
   }
 
   filterScheduleDate (dateColumn) {
