@@ -27,7 +27,58 @@ class PlayByPlay {
       return this.finishedGame(all);
     }
 
+    this.concatData(all);
     return this.refresh();
+  }
+
+  concatData (all) {
+    let oldFilterData = this.filterData;
+
+    // 反過來看，因為正在進行的球賽最新的局數會放最上面
+    for (let index = all.length - 1; index >= 0; index--) {
+      let inning = all[index];
+      let inningNum = all.length - index;
+      // 已經結束的局數
+      if (inningNum < oldFilterData.length) {
+        continue;
+      }
+
+      // 正在進行的局數
+      if (inningNum == oldFilterData.length) {
+        inning.play.forEach(perPlay => {
+          // 已經儲存過的不輸出，(不用長度檢查是因為有時候內容單一 play 內容會變動)
+          if (this.playExist(perPlay, oldFilterData[inningNum - 1].play)) {
+            return;
+          }
+
+          oldFilterData[inningNum].push(perPlay);
+          this.consolePlay(perPlay);
+        });
+        continue;
+      }
+
+      // 已經結束的局數
+      oldFilterData.push(inning);
+      this.consoleInning(inning.inning);
+      inning.play.forEach(perPlay => {
+        this.consolePlay(perPlay);
+      });
+      continue;
+    };
+
+    this.filterData = oldFilterData;
+    return;
+  }
+
+  playExist (play, alreadyPlays) {
+    let exist = false;
+    alreadyPlays.forEach(alreadyPlay => {
+      if (alreadyPlay.type == play.type && alreadyPlay.text == play.text) {
+        exist = true;
+      }
+      return;
+    });
+    return exist;
   }
 
   finishedGame (all) {
