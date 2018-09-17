@@ -7,8 +7,9 @@ class PlayByPlay {
     this.gameId = gameId;
     this.gameDate = gameDate;
     this.pbyear = pbyear;
-    this.initData = data;
-    this.refresh();
+    this.data = data
+    this.filterData = [];
+    this.getData();
   }
 
   refresh () {
@@ -19,7 +20,7 @@ class PlayByPlay {
 
   getData () {
     let cheerio = new Cheerio();
-    let all = cheerio.filterPlayByPlay(this.initData);
+    let all = cheerio.filterPlayByPlay(this.data);
 
     // 已經結束的比賽
     if ('1上' == all[0].inning) {
