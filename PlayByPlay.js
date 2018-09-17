@@ -105,6 +105,9 @@ class PlayByPlay {
     }
 
     if ('game' == play.type) {
+      if (play.text.includes('全壘打')) {
+        Effect.homerun();
+      }
       return console.log(' '.bgWhite + ` ${play.text} ` + ' '.bgWhite);
     }
   }
