@@ -32,22 +32,29 @@ class PlayByPlay {
 
   finishedGame (all) {
     all.forEach(inning => {
-      console.log(' ');
-      console.log(`現在局數: ${inning.inning}`.bold.yellow)
+      this.consoleInning(inning.inning);
       inning.play.forEach(perPlay => {
-        console.log(' ');
-        if ('comment' == perPlay.type) {
-          return console.log(' '.bgYellow + ` ${perPlay.text} ` + ' '.bgYellow);
-        }
-
-        if ('game' == perPlay.type) {
-          return console.log(' '.bgWhite + ` ${perPlay.text} ` + ' '.bgWhite);
-        }
+        this.consolePlay(perPlay);
       });
     });
 
-    console.log('\n 比賽結束 \n'.bold.yellow);
-    return console.log('Command: (S) to see score board, (Q) to quit game: \n');
+    return console.log('\n 比賽結束 \n'.bold.yellow);
+  }
+
+  consoleInning (inning) {
+    console.log(' ');
+    console.log(`現在局數: ${inning}`.bold.yellow);
+  }
+
+  consolePlay (play) {
+    console.log(' ');
+    if ('comment' == play.type) {
+      return console.log(' '.bgYellow + ` ${play.text} ` + ' '.bgYellow);
+    }
+
+    if ('game' == play.type) {
+      return console.log(' '.bgWhite + ` ${play.text} ` + ' '.bgWhite);
+    }
   }
 }
 
