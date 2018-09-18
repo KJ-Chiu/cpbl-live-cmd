@@ -111,7 +111,7 @@ stayWaiting = () => {
     }
 
     if ('S' == answer) {
-      // playByPlay.scoreBoard();
+      playByPlay.scoreBoard();
       return stayWaiting();
     }
   });
