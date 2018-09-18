@@ -2,6 +2,7 @@ const Request = require('./Request');
 const Cheerio = require('./Cheerio');
 const colors = require('colors');
 const Effect = require('./Effect');
+const Tools = require('./Tools');
 
 class PlayByPlay {
   init (gameId, gameDate, pbyear, data) {
@@ -131,6 +132,71 @@ class PlayByPlay {
       }
       return console.log(' '.bgWhite + ` ${play.text} ` + ' '.bgWhite);
     }
+  }
+
+  scoreBoard () {
+    let cheerio = new Cheerio();
+    let filterScoreBoard = cheerio.filterScoreBoard(this.data);
+
+    let moreThanNine = '';
+    if (9 < filterScoreBoard.away.score.length) {
+      moreThanNine = '| X ';
+    }
+
+    let awayNameLen = Tools.strRealLength(filterScoreBoard.away.team);
+    let homeNameLen = Tools.strRealLength(filterScoreBoard.home.team);
+    let teamNameLen = (awayNameLen > homeNameLen) ? awayNameLen : homeNameLen;
+    let teamNameSpace = ' ';
+    for (let i = 0; i < teamNameLen; i++) {
+      teamNameSpace += ' ';
+    }
+    teamNameSpace += ' ';
+    console.log(`  ${teamNameSpace}  `.bgWhite);
+    console.log(`||${teamNameSpace}|| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ${moreThanNine}|| R | H | E ||`);
+    console.log();
+    console.log(this.scoreBoardConsole(filterScoreBoard.away, teamNameLen));
+    console.log(this.scoreBoardConsole(filterScoreBoard.home, teamNameLen));
+    console.log(`  ${teamNameSpace}  `.bgWhite);
+  }
+
+  scoreBoardConsole (team, teamNameMaxLen) {
+    let name = team.team;
+    let score = team.score;
+    let line = '|| ';
+
+    let nameLen = Tools.strRealLength(name);
+    let spaceNeed = teamNameMaxLen - nameLen;
+    let spaceNeedFront = parseInt(spaceNeed / 2);
+    let spaceNeedBack = spaceNeed - spaceNeedFront;
+    for (let i = 0; i < spaceNeedFront; i++) {
+      line += ' ';
+    }
+    line += name;
+    for (let i = 0; i < spaceNeedBack; i++) {
+      line += ' ';
+    }
+    line += ' ||';
+
+    score.forEach(element => {
+      line += this.numberOutputForThreeSpace(element) + '|';
+    });
+    line += '|';
+
+    line += this.numberOutputForThreeSpace(team.R) + '|';
+    line += this.numberOutputForThreeSpace(team.H) + '|';
+    line += this.numberOutputForThreeSpace(team.E) + '||';
+    return line;
+  }
+
+  numberOutputForThreeSpace (number) {
+    if (isNaN(parseInt(number))) {
+      number = '  ';
+    } else if (10 > parseInt(number)) {
+      number += ' ';
+    }
+
+    number = ' ' + number;
+    return number;
   }
 }
 
