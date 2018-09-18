@@ -112,7 +112,8 @@ class PlayByPlay {
       });
     });
 
-    return console.log('\n 比賽結束 \n'.bold.yellow);
+    console.log('\n 比賽結束 \n'.bold.yellow);
+    return this.scoreBoard();
   }
 
   consoleInning (inning) {
