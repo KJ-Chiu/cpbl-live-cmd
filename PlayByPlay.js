@@ -10,7 +10,12 @@ class PlayByPlay {
     this.pbyear = pbyear;
     this.data = data
     this.filterData = [];
+    this.keep = true;
     this.getData();
+  }
+
+  stop () {
+    this.keep = false;
   }
 
   refresh () {
@@ -20,6 +25,10 @@ class PlayByPlay {
   }
 
   getData () {
+    if (!this.keep) {
+      return;
+    }
+
     let cheerio = new Cheerio();
     let all = cheerio.filterPlayByPlay(this.data);
 
