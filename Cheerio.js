@@ -195,6 +195,48 @@ class Cheerio {
     });
     return playByPlay;
   }
+
+  filterScoreBoard (data) {
+    const $ = cheerio.load(data);
+    let value = {
+      away: {},
+      home: {}
+    };
+    let scoreBoard = $(data).find('.score_board').first();
+    $(scoreBoard).children('div').each((i, elem) => {
+      let trs =  $(elem).children('table').children('tbody').children('tr');
+      // 比數 - 球隊
+      if (0 == i) {
+        value.away.team = $(trs).eq(1).children('td').text();
+        value.home.team = $(trs).eq(2).children('td').text();
+      }
+
+      // 比數 - 比數
+      if (1 == i) {
+        value.away.score = [];
+        value.home.score = [];
+        $(trs).eq(1).children('td').each((j, subElem) => {
+          value.away.score.push($(subElem).children('span').text());
+        });
+        $(trs).eq(2).children('td').each((j, subElem) => {
+          value.home.score.push($(subElem).children('span').text());
+        });
+      }
+
+      // 比數 - RHE
+      if (2 == i) {
+        value.away.R = $(trs).eq(1).children('td').eq(0).text();
+        value.away.H = $(trs).eq(1).children('td').eq(1).text();
+        value.away.E = $(trs).eq(1).children('td').eq(2).text();
+
+        value.home.R = $(trs).eq(2).children('td').eq(0).text();
+        value.home.H = $(trs).eq(2).children('td').eq(1).text();
+        value.home.E = $(trs).eq(2).children('td').eq(2).text();
+      }
+    });
+
+    return value;
+  }
 }
 
 module.exports = Cheerio;
