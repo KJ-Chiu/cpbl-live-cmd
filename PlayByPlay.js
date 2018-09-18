@@ -20,8 +20,20 @@ class PlayByPlay {
 
   refresh () {
     return setTimeout(() => {
-      return this.getData();
-    }, 2000);
+      if (!this.keep) {
+        return;
+      }
+
+      let request = new Request();
+      request.gamePlayByPlay(this.gameId, this.gameDate, this.pbyear, (data) => {
+        if (false === data) {
+          closeReadLine();
+        }
+
+        this.data = data;
+        return this.getData();
+      });
+    }, 10000);
   }
 
   getData () {
