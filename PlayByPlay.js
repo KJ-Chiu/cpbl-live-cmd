@@ -44,6 +44,9 @@ class PlayByPlay {
 
     let cheerio = new Cheerio();
     let all = cheerio.filterPlayByPlay(this.data);
+    if (0 == all.length) {
+      return console.log('比賽不存在或尚未開打'.bold.red);
+    }
 
     // 已經結束的比賽
     if ('1上' == all[0].inning) {
@@ -138,6 +141,9 @@ class PlayByPlay {
   scoreBoard () {
     let cheerio = new Cheerio();
     let filterScoreBoard = cheerio.filterScoreBoard(this.data);
+    if (!filterScoreBoard.away.score || !filterScoreBoard.home.score) {
+      return console.log('比賽不存在或尚未開打'.bold.red);
+    }
 
     let moreThanNine = '';
     if (9 < filterScoreBoard.away.score.length) {
