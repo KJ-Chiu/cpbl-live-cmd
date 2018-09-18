@@ -102,7 +102,7 @@ stayWaiting = () => {
   rl.question(`Command: (S) to see score board, (Q) to quit game: \n`, (answer) => {
     answer = answer.toUpperCase();
     if ('Q' == answer || 'EXIT' == answer) {
-      // playByPlay.stop();
+      playByPlay.stop();
       return askFirstStep();
     }
 
