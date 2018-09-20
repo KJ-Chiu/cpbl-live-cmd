@@ -85,17 +85,21 @@ startWithGameId = () => {
       return startWithGameId();
     }
 
-    console.log(`Start to search game ${gameId} at ${gameDate}`);
-    let pbyear = gameDate.split('-')[0];
-    let request = new Request();
-    request.gamePlayByPlay(gameId, gameDate, pbyear, (data) => {
-      if (false === data) {
-        closeReadLine();
-      }
+    return startGame(gameId, gameDate);
+  });
+}
 
-      playByPlay.init(gameId, gameDate, pbyear, data);
-      return stayWaiting();
-    });
+startGame = (gameId, gameDate) => {
+  console.log(`Start to search game ${gameId} at ${gameDate}`);
+  let pbyear = gameDate.split('-')[0];
+  let request = new Request();
+  request.gamePlayByPlay(gameId, gameDate, pbyear, (data) => {
+    if (false === data) {
+      closeReadLine();
+    }
+
+    playByPlay.init(gameId, gameDate, pbyear, data);
+    return stayWaiting();
   });
 }
 
