@@ -1,4 +1,5 @@
 console.log('歡迎來到 CPBL LIVE CMD 及時賽況，請稍後...');
+console.log('\nType "exit" anytime if try to leave');
 const Request = require('./Request');
 const Cheerio = require('./Cheerio');
 const PlayByPlay = require('./PlayByPlay');
