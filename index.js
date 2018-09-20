@@ -27,6 +27,10 @@ askFirstStep = () => {
       return closeReadLine();
     }
 
+    if ('today' == answer) {
+      return gameToday();
+    }
+
     if (1 !=  answer && 2 != answer) {
       console.log('Great, please type again.');
       return askFirstStep();
@@ -39,6 +43,24 @@ askFirstStep = () => {
 
     console.log('You choose: Start with game id');
     return startWithGameId();
+  });
+}
+
+gameToday = () => {
+  console.log('Start searching today\'s game');
+  let todayFormat = `${todayYear}-${todayMonth}-${todayDate}`;
+  let request = new Request();
+  request.schedule(todayFormat, (data) => {
+    if (false === data) {
+      closeReadLine();
+    }
+    let cheerio = new Cheerio();
+    cheerio.setData(data, todayMonth, todayDate, true);
+    let value = cheerio.filterSchedule();
+    if (value.gameId) {
+      return startGame(value.gameId, todayFormat);
+    }
+    return console.log('今日沒有比賽唷！');
   });
 }
 
