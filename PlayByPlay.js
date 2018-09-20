@@ -77,7 +77,7 @@ class PlayByPlay {
             return;
           }
 
-          oldFilterData[inningNum].push(perPlay);
+          oldFilterData[inningNum - 1].play.push(perPlay);
           this.consolePlay(perPlay);
         });
         continue;
