@@ -10,6 +10,8 @@
 2. `git clone https://github.com/KJ-Chiu/cpbl-live-cmd.git`
 
 ### Usage
+進入本專案資料夾後輸入 `node index.js`
+
 1. 選擇 (1) 觀看賽程表 或 (2) 觀看比賽直播，如果已經開打也可以直接輸入 (today)
 
 `Start with game id(1) or Search by date(2) or (today) to see live game? (1 or 2 or today)`
