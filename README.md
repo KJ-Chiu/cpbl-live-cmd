@@ -24,7 +24,7 @@
 
 `Please enter game Id and game date like following format (123 2018-09-20):`
 
-4. (today) 直接進入文字職播，如果當下有兩場比賽會進入 CPBL 賽程表上面那場
+4. (today) 直接進入文字直播，如果當下有兩場比賽會進入 CPBL 賽程表上面那場
 
 ![Live 示意圖](./cpbl-live-cmd.png)
 
