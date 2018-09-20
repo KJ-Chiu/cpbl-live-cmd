@@ -83,7 +83,7 @@ class PlayByPlay {
         continue;
       }
 
-      // 已經結束的局數
+      // 剛開始的局數
       oldFilterData.push(inning);
       this.consoleInning(inning.inning);
       inning.play.forEach(perPlay => {
