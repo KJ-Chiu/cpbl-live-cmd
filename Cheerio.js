@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const colors = require('colors');
 
 class Cheerio {
-  setData (data, month, targetDate) {
+  setData (data, month, targetDate, askToday = false) {
     this.data = data;
     this.month = parseInt(month);
     this.filterData = [];
@@ -14,6 +14,11 @@ class Cheerio {
       targetDate = '0' + parseInt(targetDate);
     }
     this.target = month + '/' + targetDate;
+
+    this.askToday = askToday;
+    this.askTodayReturn = {
+      gameId: null
+    }
   }
 
   filterSchedule () {
@@ -32,7 +37,8 @@ class Cheerio {
       this.filterData[i] = this.filterScheduleGame($(elem), data);
     });
 
-    return this.showSchedule();
+    this.showSchedule();
+    return this.askTodayReturn;
   }
 
   filterScheduleDate (dateColumn) {
@@ -132,6 +138,11 @@ class Cheerio {
       console.log(' ');
       if (perDay.date == this.target) {
         console.log('The target date'.yellow);
+      }
+
+      // 如果是要求 today 要回傳 gameId 方便直接開始直播
+      if (perDay.date == this.target && this.askToday && perDay.games[0]) {
+        this.askTodayReturn.gameId = perDay.games[0].code;
       }
       let date = `|| ${perDay.date} (${weekChinese[week]}) ||`;
       let line = date;
