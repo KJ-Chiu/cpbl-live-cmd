@@ -54,6 +54,7 @@ searchByDate = () => {
       return searchByDate();
     }
     let targetMonth = answer.split('-')[1];
+    let targetDate = answer.split('-')[2];
 
     let request = new Request();
     let data = request.schedule(answer, (data) => {
@@ -61,7 +62,7 @@ searchByDate = () => {
         closeReadLine();
       }
       let cheerio = new Cheerio();
-      cheerio.setData(data, targetMonth);
+      cheerio.setData(data, targetMonth, targetDate);
       cheerio.filterSchedule();
       return askFirstStep();
     });

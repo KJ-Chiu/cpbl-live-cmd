@@ -1,10 +1,19 @@
 const cheerio = require('cheerio');
+const colors = require('colors');
 
 class Cheerio {
-  setData (data, month) {
+  setData (data, month, targetDate) {
     this.data = data;
     this.month = parseInt(month);
     this.filterData = [];
+
+    if (10 > this.month) {
+      month = '0' + this.month;
+    }
+    if (10 > parseInt(targetDate)) {
+      targetDate = '0' + parseInt(targetDate);
+    }
+    this.target = month + '/' + targetDate;
   }
 
   filterSchedule () {
@@ -121,6 +130,9 @@ class Cheerio {
       }
 
       console.log(' ');
+      if (perDay.date == this.target) {
+        console.log('The target date'.yellow);
+      }
       let date = `|| ${perDay.date} (${weekChinese[week]}) ||`;
       let line = date;
 
