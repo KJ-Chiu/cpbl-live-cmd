@@ -22,7 +22,7 @@ if (10 > todayDate) {
 }
 
 askFirstStep = () => {
-  rl.question('Start with game id(1) or Search by date(2)? (1 or 2) ', (answer) => {
+  rl.question('Start with game id(1) or Search by date(2) or (today) to see live game? (1 or 2 or today) ', (answer) => {
     if ('exit' == answer) {
       return closeReadLine();
     }
