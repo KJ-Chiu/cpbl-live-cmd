@@ -6,11 +6,10 @@
 我最多就是用到 ES2015 的 Template literals，普通的環境應該就能正常運作了
 
 ### Installation
-1. Give me a star if you like it!
-2. `git clone https://github.com/KJ-Chiu/cpbl-live-cmd.git`
+`git clone https://github.com/KJ-Chiu/cpbl-live-cmd.git`
 
 ### Usage
-進入本專案資料夾後輸入 `node index.js`
+於 CMD 介面進入本專案資料夾後 `npm install`, `node index.js` 就可以正常使用囉
 
 1. 選擇 (1) 觀看賽程表 或 (2) 觀看比賽直播，如果已經開打也可以直接輸入 (today)
 
